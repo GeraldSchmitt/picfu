@@ -1,0 +1,9 @@
+
+{
+  "SMTP_SERVER": {
+    "login" : "<login>",
+    "password" : "<password>",
+    "url" : "<url>",
+    "port" : port_number
+  }
+}
