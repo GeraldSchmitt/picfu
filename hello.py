@@ -7,6 +7,7 @@ from email.message import EmailMessage
 # http server stuff
 from flask import Flask
 from flask import request
+from flask import send_file
 from collections import namedtuple
 
 # datetime stuff
@@ -42,7 +43,8 @@ def message():
 
 @app.route("/")
 def hello():
-    return "Welcome to picfu, Marion!\n"
+    return send_file("form.html")
+    #return "Welcome to picfu, Marion!\n"
 
 
 def queue_new_mail(data):
