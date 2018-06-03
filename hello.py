@@ -26,7 +26,7 @@ app = Flask(__name__)
 mailQueue = queue.PriorityQueue()
 condition = threading.Condition()
 smtp_config = dict()
-
+server_is_running = True
 
 @app.route("/message/", methods=['POST', 'GET'])
 def message():
@@ -37,14 +37,14 @@ def message():
         print(m)
         queue_new_mail(m)
         #send_mail(m)
-        return "POST message\n"
-    return "GET Message\n"
+        return "Message will be send!\n"
+    return send_file("form.html")
 
 
 @app.route("/")
 def hello():
-    return send_file("form.html")
-    #return "Welcome to picfu, Marion!\n"
+    #return send_file("form.html")
+    return "Welcome to picfu, Marion!\n"
 
 
 def queue_new_mail(data):
@@ -75,7 +75,7 @@ def send_mail(data):
 
 # thread unpiling the mail queue
 def mail_queue_pop_thread():
-    while True:
+    while server_is_running:
         while mailQueue.qsize() > 0:
             next_mail = mailQueue.get()[1]
             print(next_mail)
@@ -118,5 +118,11 @@ if __name__ == '__main__':
     queue_thread.start()
     get_config()
     app.run(debug=True)
+
+    # stop all the thread
+    server_is_running = False
+    with condition:
+        condition.notify_all()
+    queue_thread.join()
 
 
