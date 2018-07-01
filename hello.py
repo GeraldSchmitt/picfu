@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
 
 # http server stuff
-from flask import Flask, request, send_file, flash, redirect, url_for
+from flask import Flask, request, send_file, flash, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
 # datetime stuff
@@ -31,7 +31,7 @@ MyMessage = namedtuple("MyMessage", "message date dest filename")
 UPLOAD_FOLDER = '/tmp/picfu/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.secret_key = '!qh/C@S5WC|>_eA`#/f-{FcVW(}z4U'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -45,6 +45,11 @@ server_is_running = True
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
 
 
 @app.route("/message/", methods=['POST', 'GET'])
