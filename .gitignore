@@ -1,4 +1,6 @@
 config.json
 
 .idea/workspace.xml
+.idea/misc.xml
+.idea/picfu.iml
 venv
