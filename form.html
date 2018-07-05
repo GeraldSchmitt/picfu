@@ -11,11 +11,33 @@
 <h2>Enter here your message for the future :</h2>
 
 <form action="/message/" method="post" enctype=multipart/form-data>
-    Message:<input type="text" name="message"><br>
-    Date:<input type="datetime" name="date"><br>
-    Dest:<input type="text" name="dest"><br>
-    File:<input type="file" name="file"><br>
-    <input type="submit">
+
+    <table>
+        <tr>
+            <td>Message</td>
+            <td><input type="text" name="message"><br></td>
+        </tr>
+
+        <tr>
+            <td>Date</td>
+            <td><input type="datetime" name="date"><br></td>
+        </tr>
+
+        <tr>
+            <td>Destinataire</td>
+            <td><input type="text" name="dest"><br></td>
+        </tr>
+
+        <tr>
+            <td>File</td>
+            <td><input type="file" name="file"><br></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit"></td>
+        </tr>
+    </table>
+
 </form>
 
 </body>
